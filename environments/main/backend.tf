@@ -15,7 +15,7 @@
 
 terraform {
   backend "gcs" {
-    bucket = "na-infra-mig-gce-eu-tfstate"
+    bucket = "rcb-gcve-gce-eu-tfstate"
     prefix = "env/main"
   }
 }

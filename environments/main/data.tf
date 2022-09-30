@@ -25,7 +25,7 @@ data "google_kms_crypto_key" "key_cloudstorage_eu" {
 
 */
 data "google_compute_image" "my_image" {
-  name  = "gcve-jumpbox-image"
+  name  = "gcvejumpserverimage"
 }
 data "google_compute_network" "internal-vpc" {
   name = var.internal-vpc-name

@@ -40,7 +40,7 @@
   
 */
 resource "google_compute_instance" "default" {
-  name         = "test"
+  name         = "jumpbox"
   machine_type = "e2-medium"
   zone         = "europe-west2-c"
 
@@ -48,7 +48,7 @@ resource "google_compute_instance" "default" {
 
   boot_disk {
     initialize_params {
-      image = "gcve-jumpbox-image"
+      image = "gcvejumpserverimage"
     }
   }
 
