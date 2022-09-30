@@ -40,7 +40,7 @@
   
 */
 resource "google_compute_instance" "default" {
-  name         = "jumpbox"
+  name         = "gcve-jumpbox"
   machine_type = "e2-medium"
   zone         = "europe-west2-c"
 
