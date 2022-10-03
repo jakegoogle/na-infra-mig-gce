@@ -81,7 +81,7 @@ resource "google_compute_instance" "default" {
 
 ### Image creation for VyOS rolling latest
 resource "google_compute_image" "vyos_image" {
-  name = "vyos-1.4-rolling-202209020217-amd64"
+  name = "vyos-1_4-rolling-202209020217-amd64"
 
   raw_disk {
     source = "https://storage.cloud.google.com/gcve-lab-iso-images-eu/vyos-1.4-rolling-202209020217-amd64.iso.tar.gz"
