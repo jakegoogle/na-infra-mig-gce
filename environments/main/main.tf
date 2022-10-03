@@ -84,7 +84,7 @@ resource "google_compute_image" "vyos_image" {
   name = "vyos-rolling-202209020217"
 
   raw_disk {
-    source = "https://storage.cloud.google.com/gcve-lab-iso-images-eu/vyos-1.4-rolling-202209020217-amd64.iso.tar.gz"
+    source = "https://storage.cloud.google.com/gcve-lab-iso-images-eu/vyos-rolling-202209020217.iso.tar.gz"
   }
 
   guest_os_features {
