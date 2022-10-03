@@ -78,3 +78,20 @@ resource "google_compute_instance" "default" {
   }
   */
 }
+
+### Image creation for VyOS rolling latest
+resource "google_compute_image" "vyos_image" {
+  name = "vyos-rolling-latest"
+
+  raw_disk {
+    source = "https://storage.cloud.google.com/gcve-lab-iso-images-eu/vyos-rolling-latest.iso"
+  }
+
+  guest_os_features {
+    type = "GVNIC"
+  }
+
+  guest_os_features {
+    type = "MULTI_IP_SUBNET"
+  }
+}
