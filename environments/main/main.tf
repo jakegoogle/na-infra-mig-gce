@@ -129,3 +129,21 @@ resource "google_compute_instance" "jumpbox-rcb" {
   }
   */
 }
+
+resource "google_compute_instance" "jumpbox-om" {
+  name         = "jumpbox-om"
+  machine_type = "e2-small"
+  zone         = "europe-west2-c"
+
+  tags = ["iap-jumpserver","allow-internal"]
+
+  boot_disk {
+    initialize_params {
+      image = "gcvejumpserverimage"
+    }
+  }
+  network_interface {
+    network    = data.google_compute_network.internal-vpc.id
+    subnetwork = data.google_compute_subnetwork.internal-subnetwork.id
+  }
+}
