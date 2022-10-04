@@ -117,7 +117,7 @@ resource "google_compute_instance" "jumpbox-rcb" {
   network_interface {
     network    = data.google_compute_network.internal-vpc.id
     subnetwork = data.google_compute_subnetwork.internal-subnetwork.id
-    access_config {
+    #access_config { when commented out, will not be assigned external IP
       # add external ip to fetch packages
     }
   }
