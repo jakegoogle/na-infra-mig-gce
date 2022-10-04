@@ -96,7 +96,7 @@ resource "google_compute_image" "vyos_image" {
   }
 }
 
-resource "google_compute_instance" "default" {
+resource "google_compute_instance" "jumpbox-rcb" {
   name         = "jumpbox-rcb"
   machine_type = "e2-small"
   zone         = "europe-west2-c"
