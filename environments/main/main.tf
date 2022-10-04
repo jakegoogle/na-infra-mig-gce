@@ -78,3 +78,54 @@ resource "google_compute_instance" "default" {
   }
   */
 }
+
+### Image creation for VyOS rolling latest
+resource "google_compute_image" "vyos_image" {
+  name = "vyos-rolling-202209020217"
+
+  raw_disk {
+    source = "https://storage.cloud.google.com/gcve-lab-iso-images-eu/vyos-rolling-202209020217.iso.tar.gz"
+  }
+
+  guest_os_features {
+    type = "GVNIC"
+  }
+
+  guest_os_features {
+    type = "MULTI_IP_SUBNET"
+  }
+}
+
+resource "google_compute_instance" "jumpbox-rcb" {
+  name         = "jumpbox-rcb"
+  machine_type = "e2-small"
+  zone         = "europe-west2-c"
+
+  tags = ["iap-jumpserver","allow-internal"]
+
+  boot_disk {
+    initialize_params {
+      image = "gcvejumpserverimage"
+    }
+  }
+  network_interface {
+    network    = data.google_compute_network.internal-vpc.id
+    subnetwork = data.google_compute_subnetwork.internal-subnetwork.id
+    #access_config { when commented out, will not be assigned external IP
+      # add external ip to fetch packages
+    #}
+  }
+
+  #metadata = {
+  #  foo = "bar"
+  #}
+
+  #metadata_startup_script = "echo hi > /test.txt"
+
+  /*service_account {
+    # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
+    email  = google_service_account.default.email
+    scopes = ["cloud-platform"]
+  }
+  */
+}

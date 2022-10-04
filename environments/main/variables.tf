@@ -31,6 +31,7 @@ variable "google_compute_machine_image" {
   description = "The image to use to create the jumpbox"
   default     = "gcvejumpboximage"
 }
+
 /*
 variable "source_image" {
   type = string
