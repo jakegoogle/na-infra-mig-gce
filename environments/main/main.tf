@@ -44,7 +44,7 @@ resource "google_compute_instance" "default" {
   machine_type = "e2-medium"
   zone         = "europe-west2-c"
 
-  tags = ["jumpserver"]
+  tags = ["iap-jumpserver"]
 
   boot_disk {
     initialize_params {
