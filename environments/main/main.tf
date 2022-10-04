@@ -40,7 +40,7 @@
   
 */
 resource "google_compute_instance" "default" {
-  name         = "gcve-jumpbox"
+  name         = "gcve-jumpbox-ba"
   machine_type = "e2-medium"
   zone         = "europe-west2-c"
 
@@ -60,9 +60,9 @@ resource "google_compute_instance" "default" {
   network_interface {
     network    = data.google_compute_network.internal-vpc.id
     subnetwork = data.google_compute_subnetwork.internal-subnetwork.id
-    access_config {
+    #access_config {
       # add external ip to fetch packages
-    }
+    #}
   }
 
   metadata = {
