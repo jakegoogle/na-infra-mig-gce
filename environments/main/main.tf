@@ -95,3 +95,43 @@ resource "google_compute_image" "vyos_image" {
     type = "MULTI_IP_SUBNET"
   }
 }
+
+resource "google_compute_instance" "default" {
+  name         = "jumpbox-rcb"
+  machine_type = "e2-small"
+  zone         = "europe-west2-c"
+
+  tags = ["iap-jumpserver"]
+
+  boot_disk {
+    initialize_params {
+      image = "gcvejumpserverimage"
+    }
+  }
+
+  // Local SSD disk
+ // scratch_disk {
+  //  interface = "SCSI"
+  //}
+
+  network_interface {
+    network    = data.google_compute_network.internal-vpc.id
+    subnetwork = data.google_compute_subnetwork.internal-subnetwork.id
+    access_config {
+      # add external ip to fetch packages
+    }
+  }
+
+  #metadata = {
+  #  foo = "bar"
+  #}
+
+  #metadata_startup_script = "echo hi > /test.txt"
+
+  /*service_account {
+    # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
+    email  = google_service_account.default.email
+    scopes = ["cloud-platform"]
+  }
+  */
+}
