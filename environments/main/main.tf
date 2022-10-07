@@ -116,8 +116,8 @@ resource "google_compute_instance" "jumpbox-rcb" {
     #}
   }
     network_interface {
-    network    = data.google_compute_network.
-    subnetwork = data.google_compute_subnetwork.internal-subnetwork.id
+    network    = data.google_compute_network.mgmt-vpc.id
+    subnetwork = data.google_compute_subnetwork.mgmt-subnetwork.id
   }  
 
   #metadata = {
