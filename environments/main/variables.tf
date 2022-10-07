@@ -54,3 +54,12 @@ variable "internal-subnetwork-name" {
   type = string
   description = "The internal subnetwork name for Data Lookup"
 }
+
+variable "mgmt-vpc-name" {
+  type = string
+  description = "The internal VPC name for Data Lookup"
+}
+variable "mgmt-subnetwork-name" {
+  type = string
+  description = "The internal subnetwork name for Data Lookup"
+}
