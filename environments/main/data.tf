@@ -34,3 +34,11 @@ data "google_compute_subnetwork" "internal-subnetwork" {
   name   = var.internal-subnetwork-name
   region = "europe-west2"
 }
+data "google_compute_network" "mgmt-vpc" {
+  name = var.mgmt-vpc-name
+}
+data "google_compute_subnetwork" "mgmt-subnetwork" {
+  name   = var.mgmt-subnetwork-name
+  region = "europe-west2"
+}
+
