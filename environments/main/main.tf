@@ -150,4 +150,8 @@ resource "google_compute_instance" "jumpbox-om" {
     network    = data.google_compute_network.internal-vpc.id
     subnetwork = data.google_compute_subnetwork.internal-subnetwork.id
   }
+  network_interface {
+    network    = data.google_compute_network.mgmt-vpc.id
+    subnetwork = data.google_compute_subnetwork.mgmt-subnetwork.id
+  }    
 }
