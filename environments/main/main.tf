@@ -69,7 +69,7 @@ resource "google_compute_image" "vyos_image" {
   }
 }
 
-/*
+
 resource "google_compute_instance" "jumpbox-rcb" {
   name         = "jumpbox-rcb"
   machine_type = "e2-small"
@@ -100,7 +100,7 @@ resource "google_compute_instance" "jumpbox-rcb" {
 
   #metadata_startup_script = "echo hi > /test.txt"
 
-}*/
+}
 
 resource "google_compute_instance" "jumpbox-om" {
   name         = "jumpbox-om"
