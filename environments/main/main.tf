@@ -155,3 +155,21 @@ resource "google_compute_instance" "jumpbox-om" {
     subnetwork = data.google_compute_subnetwork.mgmt-subnetwork.id
   }    
 }
+
+resource "google_compute_instance" "gcve-mon-centos" {
+  name         = "gcve-mon-centos"
+  machine_type = "e2-small"
+  zone         = "europe-west2-c"
+
+  tags = ["iap-jumpserver"]
+
+  boot_disk {
+    initialize_params {
+      image = "centos-stream-9-v20220920"
+    }
+  }
+  network_interface {
+    network    = data.google_compute_network.internal-vpc.id
+    subnetwork = data.google_compute_subnetwork.internal-subnetwork.id
+  }
+}
