@@ -147,7 +147,7 @@ resource "google_compute_instance" "jumpbox_jw" {
   machine_type = "e2-small"
   zone         = "europe-west2-c"
 
-  tags = ["iap-jumpserver","allow-internal",""]
+  tags = ["iap-jumpserver","allow-internal"]
 
   boot_disk {
     initialize_params {
