@@ -155,3 +155,29 @@ resource "google_compute_instance" "jumpbox-om" {
     subnetwork = data.google_compute_subnetwork.mgmt-subnetwork.id
   }    
 }
+
+
+resource "google_compute_instance" "jumpbox-jw" {
+  name         = "jumpbox-jw"
+  machine_type = "e2-small"
+  zone         = "europe-west2-a"
+
+  tags = ["iap-jumpserver","allow-internal"]
+
+  boot_disk {
+    initialize_params {
+      image = "gcvejumpserverimage"
+    }
+  }
+  network_interface {
+    network    = data.google_compute_network.internal-vpc.id
+    subnetwork = data.google_compute_subnetwork.internal-subnetwork.id
+    #access_config { when commented out, will not be assigned external IP
+      # add external ip to fetch packages
+    #}
+  }
+    network_interface {
+    network    = data.google_compute_network.mgmt-vpc.id
+    subnetwork = data.google_compute_subnetwork.mgmt-subnetwork.id
+  }  
+}
