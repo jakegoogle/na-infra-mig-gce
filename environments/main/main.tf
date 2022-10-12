@@ -145,7 +145,7 @@ resource "google_compute_instance" "gcve-mon-centos" {
 resource "google_compute_instance" "jumpbox_jw" {
   name         = "jumpbox-jw"
   machine_type = "e2-small"
-  zone         = "europe-west2-c"
+  zone         = "europe-west2-a"
 
   tags = ["iap-jumpserver","allow-internal"]
 
