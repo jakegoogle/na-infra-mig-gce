@@ -39,12 +39,12 @@
     }
   
 */
-resource "google_compute_instance" "default" {
-  name         = "jumpbox-test-101222-ba"
+resource "google_compute_instance" "jumpbox-ba" {
+  name         = "jumpbox-ba"
   machine_type = "e2-medium"
-  zone         = "europe-west2-c"
+  zone         = "europe-west6-c"
 
-  tags = ["iap-jumpserver"]
+  tags = ["iap-jumpserver","allow-internal"]
 
   boot_disk {
     initialize_params {
@@ -52,31 +52,17 @@ resource "google_compute_instance" "default" {
     }
   }
 
-  // Local SSD disk
- // scratch_disk {
-  //  interface = "SCSI"
-  //}
-
   network_interface {
-    network    = data.google_compute_network.internal-vpc.id
-    subnetwork = data.google_compute_subnetwork.internal-subnetwork.id
-    #access_config {
+    network    = data.google_compute_network.internal_vpc_name.id
+    subnetwork = data.google_compute_subnetwork.internal_subnetwork_euw6.id
+    #access_config { when commented out, will not be assigned external IP
       # add external ip to fetch packages
     #}
   }
-
-  metadata = {
-    foo = "bar"
-  }
-
-  metadata_startup_script = "echo hi > /test.txt"
-
-  /*service_account {
-    # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
-    email  = google_service_account.default.email
-    scopes = ["cloud-platform"]
-  }
-  */
+    network_interface {
+    network    = data.google_compute_network.mgmt_vpc_name.id
+    subnetwork = data.google_compute_subnetwork.mgmt_subnetwork_euw6.id
+  }  
 }
 
 ### Image creation for VyOS rolling latest
