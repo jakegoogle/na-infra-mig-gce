@@ -12,33 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
-/*resource "google_compute_instance" "default" {
-  name         = "test"
-  machine_type = "e2-medium"
-  zone         = "eu-central1-a"
-
-  tags = ["foo", "bar"]
-
-  boot_disk {
-    initialize_params {
-      image = "gcve-jumpbpox-image"
-    }
-  }
-
-  // Local SSD disk
-  scratch_disk {
-    interface = "SCSI"
-  }
-
-  network_interface {
-    network = "default"
-
-    access_config {
-      // Ephemeral public IP
-    }
-  
-*/
 resource "google_compute_instance" "jumpbox-ba" {
   name         = "jumpbox-ba"
   machine_type = "e2-medium"
@@ -65,23 +38,6 @@ resource "google_compute_instance" "jumpbox-ba" {
   }  
 }
 
-### Image creation for VyOS rolling latest
-resource "google_compute_image" "vyos_image" {
-  name = "vyos-rolling-202209020217"
-
-  raw_disk {
-    source = "https://storage.cloud.google.com/gcve-lab-iso-images-eu/vyos-rolling-202209020217.iso.tar.gz"
-  }
-
-  guest_os_features {
-    type = "GVNIC"
-  }
-
-  guest_os_features {
-    type = "MULTI_IP_SUBNET"
-  }
-}
-
 resource "google_compute_instance" "jumpbox-rcb" {
   name         = "jumpbox-rcb"
   machine_type = "e2-small"
@@ -105,43 +61,7 @@ resource "google_compute_instance" "jumpbox-rcb" {
     network    = data.google_compute_network.mgmt-vpc.id
     subnetwork = data.google_compute_subnetwork.mgmt-subnetwork.id
   }  
-
-  #metadata = {
-  #  foo = "bar"
-  #}
-
-  #metadata_startup_script = "echo hi > /test.txt"
-
-  /*service_account {
-    # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
-    email  = google_service_account.default.email
-    scopes = ["cloud-platform"]
-  }
-  */
 }
-
-resource "google_compute_instance" "jumpbox-om" {
-  name         = "jumpbox-om"
-  machine_type = "e2-small"
-  zone         = "europe-west2-c"
-
-  tags = ["iap-jumpserver","allow-internal"]
-
-  boot_disk {
-    initialize_params {
-      image = "gcvejumpserverimage"
-    }
-  }
-  network_interface {
-    network    = data.google_compute_network.internal-vpc.id
-    subnetwork = data.google_compute_subnetwork.internal-subnetwork.id
-  }
-  network_interface {
-    network    = data.google_compute_network.mgmt-vpc.id
-    subnetwork = data.google_compute_subnetwork.mgmt-subnetwork.id
-  }    
-}
-
 
 resource "google_compute_instance" "jumpbox-jw" {
   name         = "jumpbox-jw"
