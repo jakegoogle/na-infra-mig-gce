@@ -156,7 +156,7 @@ resource "google_compute_instance" "jumpbox-om" {
   }    
 }
 
-
+/*
 resource "google_compute_instance" "jumpbox-jw" {
   name         = "jumpbox-jw"
   machine_type = "e2-small"
@@ -181,3 +181,4 @@ resource "google_compute_instance" "jumpbox-jw" {
     subnetwork = data.google_compute_subnetwork.mgmt-subnetwork.id
   }  
 }
+*/
