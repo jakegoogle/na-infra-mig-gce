@@ -32,12 +32,12 @@ variable "google_compute_machine_image" {
   default     = "gcvejumpboximage"
 }
 
-variable "internal_vpc_vars" {
+variable "internal-vpc-vars" {
   type        = map(string)
   description = "vars for the internal VPC resources"
 }
 
-variable "mgmt_vpc_vars" {
+variable "mgmt-vpc-vars" {
   type        = map(string)
   description = "vars for the mgmt VPC resources"
 }

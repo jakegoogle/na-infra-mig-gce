@@ -43,17 +43,17 @@ data "google_compute_subnetwork" "mgmt-subnetwork" {
 }
 
 ### Eu-west6
-data "google_compute_network" "internal-vpc-name" {
+data "google_compute_network" "internal_vpc_name" {
   name = var.internal-vpc-vars["vpc-name"]
 }
-data "google_compute_subnetwork" "internal-subnetwork-euw6" {
+data "google_compute_subnetwork" "internal_subnetwork_euw6" {
   name   = var.internal-vpc-vars["euw6-subnetwork-name"]
   region = "europe-west6"
 }
-data "google_compute_network" "mgmt-vpc-name" {
+data "google_compute_network" "mgmt_vpc_name" {
   name = var.mgmt-vpc-vars["vpc-name"]
 }
-data "google_compute_subnetwork" "mgmt-subnetwork-euw6" {
+data "google_compute_subnetwork" "mgmt_subnetwork_euw6" {
   name   = var.mgmt-vpc-vars["euw6-subnetwork-name"]
   region = "europe-west6"
 }
