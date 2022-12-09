@@ -11,3 +11,8 @@ internal_vpc_vars = {
   euw6-subnetwork-name = "internal-euw6-subnet"
   euw2-subnetwork-name = "internal-euw2-subnet"
 }
+mgmt_vpc_vars = {
+  vpc-name = "gve-lab-vpc-mgmt"
+  euw6-subnetwork-name = "mgmt-euw6-subnet"
+  euw2-subnetwork-name = "mgmt-euw2-subnet"
+}

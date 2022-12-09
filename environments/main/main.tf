@@ -170,14 +170,14 @@ resource "google_compute_instance" "jumpbox-jw" {
     }
   }
   network_interface {
-    network    = data.google_compute_network.internal-vpc.id
-    subnetwork = data.google_compute_subnetwork.internal-subnetwork.id
+    network    = data.google_compute_network.internal-vpc-name.id
+    subnetwork = data.google_compute_subnetwork.internal-subnetwork-euw6.id
     #access_config { when commented out, will not be assigned external IP
       # add external ip to fetch packages
     #}
   }
     network_interface {
-    network    = data.google_compute_network.mgmt-vpc.id
-    subnetwork = data.google_compute_subnetwork.mgmt-subnetwork.id
+    network    = data.google_compute_network.mgmt-vpc-name.id
+    subnetwork = data.google_compute_subnetwork.mgmt-subnetwork-euw6.id
   }  
 }

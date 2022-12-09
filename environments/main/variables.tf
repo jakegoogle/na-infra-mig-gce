@@ -41,21 +41,6 @@ variable "mgmt_vpc_vars" {
   type        = map(string)
   description = "vars for the mgmt VPC resources"
 }
-
-/*
-variable "source_image" {
-  type = string
-
-  description = "The image to use to create the jumpbox"
-}
-*/
-/*
-variable "source_image" {
-  type = string
-
-  description = "The image to use to create the jumpbox"
-}
-*/
 variable "internal-vpc-name" {
   type = string
   description = "The internal VPC name for Data Lookup"
