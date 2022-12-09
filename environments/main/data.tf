@@ -42,3 +42,18 @@ data "google_compute_subnetwork" "mgmt-subnetwork" {
   region = "europe-west2"
 }
 
+### Eu-west6
+data "google_compute_network" "internal-vpc-name" {
+  name = var.internal-vpc-vars["vpc-name"]
+}
+data "google_compute_subnetwork" "internal-subnetwork-euw6" {
+  name   = var.internal-vpc-vars["euw6-subnetwork-name"]
+  region = "europe-west6"
+}
+data "google_compute_network" "mgmt-vpc-vars" {
+  name = var.mgmt-vpc-name
+}
+data "google_compute_subnetwork" "mgmt-subnetwork" {
+  name   = var.mgmt-subnetwork-name
+  region = "europe-west6"
+}
