@@ -78,9 +78,9 @@ resource "google_compute_instance" "jumpbox-jw" {
   network_interface {
     network    = data.google_compute_network.internal_vpc_name.id
     subnetwork = data.google_compute_subnetwork.internal_subnetwork_euw6.id
-    #access_config { when commented out, will not be assigned external IP
-      # add external ip to fetch packages
-    #}
+    access_config {
+      // Ephemeral public IP
+    }
   }
     network_interface {
     network    = data.google_compute_network.mgmt_vpc_name.id
