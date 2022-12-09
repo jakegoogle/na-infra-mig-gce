@@ -156,11 +156,11 @@ resource "google_compute_instance" "jumpbox-om" {
   }    
 }
 
-/*
+
 resource "google_compute_instance" "jumpbox-jw" {
   name         = "jumpbox-jw"
   machine_type = "e2-small"
-  zone         = "europe-west2-a"
+  zone         = "europe-west6-a"
 
   tags = ["iap-jumpserver","allow-internal"]
 
@@ -181,4 +181,3 @@ resource "google_compute_instance" "jumpbox-jw" {
     subnetwork = data.google_compute_subnetwork.mgmt-subnetwork.id
   }  
 }
-*/
