@@ -13,8 +13,8 @@
 # limitations under the License.
 
 ### Cloud NAT Creation
-resource "google_compute_router" "euw6_nat_router" {
-  name    = "euw6-nat-router"
+resource "google_compute_router" "mgmt-euw6_nat_router" {
+  name    = "mgmt-euw6-nat-router"
   region  = "europe-west6"
   network = data.google_compute_network.mgmt_vpc_name.id
 
@@ -23,8 +23,8 @@ resource "google_compute_router" "euw6_nat_router" {
   }
 }
 
-resource "google_compute_router_nat" "euw6_nat_gateway" {
-  name                               = "euw6-nat-gateway"
+resource "google_compute_router_nat" "mgmt-euw6_nat_gateway" {
+  name                               = "mgmt-euw6-nat-gateway"
   router                             = google_compute_router.euw6_nat_router.name
   region                             = google_compute_router.euw6_nat_router.region
   nat_ip_allocate_option             = "AUTO_ONLY"
@@ -88,13 +88,13 @@ resource "google_compute_instance" "jumpbox-rcb" {
     subnetwork = data.google_compute_subnetwork.mgmt-subnetwork.id
   }  
 }
-/*
+
 resource "google_compute_instance" "jumpbox-jw" {
   name         = "jumpbox-jw"
   machine_type = "e2-medium"
   zone         = "europe-west6-a"
 
-  tags = ["iap-jumpserver","allow-internal"]
+  tags = ["iap-jumpserver","allow-internal","mgmt-iap-jumpserver"]
 
   boot_disk {
     initialize_params {
@@ -114,4 +114,3 @@ resource "google_compute_instance" "jumpbox-jw" {
     subnetwork = data.google_compute_subnetwork.internal_subnetwork_euw6.id
   }  
 }
-*/
