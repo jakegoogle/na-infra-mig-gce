@@ -91,10 +91,10 @@ resource "google_compute_instance" "jumpbox-rcb" {
 
 resource "google_compute_instance" "jumpbox-jw" {
   name         = "jumpbox-jw"
-  machine_type = "e2-small"
+  machine_type = "e2-medium"
   zone         = "europe-west6-a"
 
-  tags = ["iap-jumpserver","allow-internal","mgmt-vpc-vm-all"]
+  tags = ["iap-jumpserver","allow-internal"]
 
   boot_disk {
     initialize_params {
@@ -102,16 +102,15 @@ resource "google_compute_instance" "jumpbox-jw" {
     }
   }
 
-  }
-    network_interface {
+  network_interface {
     network    = data.google_compute_network.mgmt_vpc_name.id
     subnetwork = data.google_compute_subnetwork.mgmt_subnetwork_euw6.id
+    #access_config { when commented out, will not be assigned external IP
+      # add external ip to fetch packages
+    #}
   }
-
-  network_interface {
+    network_interface {
     network    = data.google_compute_network.internal_vpc_name.id
     subnetwork = data.google_compute_subnetwork.internal_subnetwork_euw6.id
-#    access_config {
-#      // Ephemeral public IP
-#    }  
+  }  
 }
