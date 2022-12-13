@@ -14,7 +14,7 @@
 
 ### Cloud NAT Creation
 resource "google_compute_router" "euw6_nat_router" {
-  name    = "euw6_nat_router"
+  name    = "euw6-nat-router"
   region  = "europe-west6"
   network = data.google_compute_network.mgmt_vpc_name.id
 
@@ -24,7 +24,7 @@ resource "google_compute_router" "euw6_nat_router" {
 }
 
 resource "google_compute_router_nat" "euw6_nat_gateway" {
-  name                               = "euw6_nat_gateway"
+  name                               = "euw6-nat-gateway"
   router                             = google_compute_router.euw6_nat_router.name
   region                             = google_compute_router.euw6_nat_router.region
   nat_ip_allocate_option             = "AUTO_ONLY"
