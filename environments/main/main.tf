@@ -41,9 +41,9 @@ resource "google_compute_router_nat" "mgmt-euw6_nat_gateway" {
 resource "google_compute_instance" "jumpbox-ba" {
   name         = "jumpbox-ba"
   machine_type = "e2-medium"
-  zone         = "europe-west6-c"
+  zone         = "europe-west6-a"
 
-  tags = ["iap-jumpserver","allow-internal"]
+  tags = ["iap-jumpserver","allow-internal","mgmt-iap-jumpserver"]
 
   boot_disk {
     initialize_params {
@@ -52,15 +52,12 @@ resource "google_compute_instance" "jumpbox-ba" {
   }
 
   network_interface {
-    network    = data.google_compute_network.internal_vpc_name.id
-    subnetwork = data.google_compute_subnetwork.internal_subnetwork_euw6.id
-    #access_config { when commented out, will not be assigned external IP
-      # add external ip to fetch packages
-    #}
-  }
-    network_interface {
     network    = data.google_compute_network.mgmt_vpc_name.id
     subnetwork = data.google_compute_subnetwork.mgmt_subnetwork_euw6.id
+  }
+    network_interface {
+    network    = data.google_compute_network.internal_vpc_name.id
+    subnetwork = data.google_compute_subnetwork.internal_subnetwork_euw6.id
   }  
 }
 
@@ -105,9 +102,6 @@ resource "google_compute_instance" "jumpbox-jw" {
   network_interface {
     network    = data.google_compute_network.mgmt_vpc_name.id
     subnetwork = data.google_compute_subnetwork.mgmt_subnetwork_euw6.id
-    #access_config { when commented out, will not be assigned external IP
-      # add external ip to fetch packages
-    #}
   }
     network_interface {
     network    = data.google_compute_network.internal_vpc_name.id
