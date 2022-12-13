@@ -88,7 +88,7 @@ resource "google_compute_instance" "jumpbox-rcb" {
     subnetwork = data.google_compute_subnetwork.mgmt-subnetwork.id
   }  
 }
-
+/*
 resource "google_compute_instance" "jumpbox-jw" {
   name         = "jumpbox-jw"
   machine_type = "e2-medium"
@@ -114,3 +114,4 @@ resource "google_compute_instance" "jumpbox-jw" {
     subnetwork = data.google_compute_subnetwork.internal_subnetwork_euw6.id
   }  
 }
+*/
