@@ -25,8 +25,8 @@ resource "google_compute_router" "mgmt-euw6_nat_router" {
 
 resource "google_compute_router_nat" "mgmt-euw6_nat_gateway" {
   name                               = "mgmt-euw6-nat-gateway"
-  router                             = google_compute_router.euw6_nat_router.name
-  region                             = google_compute_router.euw6_nat_router.region
+  router                             = google_compute_router.mgmt-euw6_nat_router.name
+  region                             = google_compute_router.mgmt-euw6_nat_router.region
   nat_ip_allocate_option             = "AUTO_ONLY"
   source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
 
