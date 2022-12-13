@@ -68,22 +68,24 @@ resource "google_compute_instance" "jumpbox-jw" {
   machine_type = "e2-small"
   zone         = "europe-west6-a"
 
-  tags = ["iap-jumpserver","allow-internal"]
+  tags = ["iap-jumpserver","allow-internal","mgmt-vpc-vm-all"]
 
   boot_disk {
     initialize_params {
       image = "gcvejumpserverimage"
     }
   }
+  
+  }
+    network_interface {
+    network    = data.google_compute_network.mgmt_vpc_name.id
+    subnetwork = data.google_compute_subnetwork.mgmt_subnetwork_euw6.id
+  }
+
   network_interface {
     network    = data.google_compute_network.internal_vpc_name.id
     subnetwork = data.google_compute_subnetwork.internal_subnetwork_euw6.id
 #    access_config {
 #      // Ephemeral public IP
-#    }
-  }
-    network_interface {
-    network    = data.google_compute_network.mgmt_vpc_name.id
-    subnetwork = data.google_compute_subnetwork.mgmt_subnetwork_euw6.id
-  }  
+#    }  
 }
