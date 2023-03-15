@@ -12,7 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-### Cloud NAT Creation
+/********************************************
+Cloud NAT
+********************************************/
 resource "google_compute_router" "mgmt-euw6_nat_router" {
   name    = "mgmt-euw6-nat-router"
   region  = "europe-west6"
@@ -37,7 +39,9 @@ resource "google_compute_router_nat" "mgmt-euw6_nat_gateway" {
 }
 
 
-### Jumpboxs
+/********************************************
+Jumpboxs
+********************************************/
 resource "google_compute_instance" "jumpbox-ba" {
   name         = "jumpbox-ba"
   machine_type = "e2-medium"
@@ -78,4 +82,79 @@ resource "google_compute_instance" "jumpbox-jw" {
     network    = data.google_compute_network.mgmt_vpc_name.id
     subnetwork = data.google_compute_subnetwork.mgmt_subnetwork_euw6.id
   }  
+}
+
+/********************************************
+SQL Cluster VM
+********************************************/
+resource "google_service_account" "compute_sql_sa" {
+  project      = var.project
+  account_id   = "${var.project}-sql"
+  display_name = "Project compute service account"
+}
+
+locals {
+  instance_names = ["ltydevkeysql01", "ltydevkeysql02", "ltydevapxsql01", "ltydevapxsql02", "ltydevaplsql01", "ltydevaplsql02"]
+  ip_address     = ["10.96.56.6", "10.96.56.7", "10.96.56.8", "10.96.56.9", "10.96.56.10", "10.96.56.11"]
+  sites          = ["us-central1-a", "us-central1-a", "us-central1-a", "us-central1-a", "us-central1-a", "us-central1-a"]
+  add_disk       = [true, true, true, true, true, true]
+  add_disk_space = ["100", "100", "100", "100", "100", "100"]
+}
+
+## Addiitonal disks for sql cluster###
+locals {
+  attached_disks = {
+    for disk in var.attached_disks :
+    disk.name => disk
+  }
+  attached_disks_pairs = {
+    for pair in setproduct(keys(local.names), keys(local.attached_disks)) :
+    "${pair[0]}-${pair[1]}" => { name = pair[0], disk_name = pair[1] }
+  }
+  names = (
+    { for i in range(0, length(local.instance_names)) : local.instance_names[i] => i }
+  )
+}
+
+resource "google_compute_instance" "default" {
+  for_each     = var.use_instance_template ? {} : local.names
+  project      = var.project
+  machine_type = "e2-standard-2"
+  zone = local.sites[each.value]
+  name = each.key
+  network_interface {
+    network    = "projects/rcb-gcve/global/networks/gve-lab-vpc-internal"
+    subnetwork = "projects/rcb-gcve2/regions/eu-west6/subnetworks/internal-euw6-subnet"
+  }
+
+  boot_disk {
+    initialize_params {
+      type  = "pd-ssd"
+      image = "windows-cloud/windows-server-2019-dc-v20221109"
+      size  = 50
+    }
+
+  }
+
+  dynamic "attached_disk" {
+    for_each = {
+      for resource_name, pair in local.attached_disks_pairs :
+      resource_name => local.attached_disks[pair.disk_name] if pair.name == each.key
+    }
+    iterator = config
+    content {
+      device_name = config.value.name
+      mode        = config.value.options.mode
+      source      = google_compute_disk.ltydevkeysql01-disk[config.key].name
+    }
+  }
+}
+
+resource "google_compute_disk" "ltydevkeysql01-disk" {
+  for_each = local.attached_disks_pairs
+  project  = var.project
+  name     = each.key #"sql-cluster-vm01-${local.disk_names[count.index]}"
+  type     = local.attached_disks[each.value.disk_name].options.type
+  zone     = var.zone
+  size     = local.attached_disks[each.value.disk_name].size
 }
