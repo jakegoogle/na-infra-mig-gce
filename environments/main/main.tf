@@ -123,8 +123,8 @@ resource "google_compute_instance" "sql" {
   zone = local.sites[each.value]
   name = each.key
   network_interface {
-    network    = "projects/rcb-gcve/global/networks/gve-lab-vpc-internal"
-    subnetwork = "projects/rcb-gcve/regions/eu-west6/subnetworks/internal-euw6-subnet"
+    network    = data.google_compute_network.internal_vpc_name.id
+    subnetwork = data.google_compute_subnetwork.mgmt_subnetwork_euw6.self_link
   }
 
   boot_disk {
