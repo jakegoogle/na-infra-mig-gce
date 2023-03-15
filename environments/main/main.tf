@@ -95,8 +95,8 @@ resource "google_service_account" "compute_sql_sa" {
 
 locals {
   instance_names = ["ltydevkeysql01", "ltydevkeysql02", "ltydevapxsql01", "ltydevapxsql02", "ltydevaplsql01", "ltydevaplsql02"]
-  ip_address     = ["10.96.56.6", "10.96.56.7", "10.96.56.8", "10.96.56.9", "10.96.56.10", "10.96.56.11"]
-  sites          = ["us-central1-a", "us-central1-a", "us-central1-a", "us-central1-a", "us-central1-a", "us-central1-a"]
+  ip_address     = ["10.1.1.6", "10.1.1.7", "10.1.1.8", "10.1.1.9", "10.1.1.10", "10.1.1.11"]
+  sites          = ["europe-west6-a", "europe-west6-a", "europe-west6-a", "europe-west6-a", "europe-west6-a", "europe-west6-a"]
   add_disk       = [true, true, true, true, true, true]
   add_disk_space = ["100", "100", "100", "100", "100", "100"]
 }
@@ -116,7 +116,7 @@ locals {
   )
 }
 
-resource "google_compute_instance" "default" {
+resource "google_compute_instance" "sql" {
   for_each     = var.use_instance_template ? {} : local.names
   project      = var.project
   machine_type = "e2-standard-2"
