@@ -19,7 +19,7 @@ mgmt-vpc-vars = {
 
 #SQL Server
 name            = "sql-instance"
-region_euw6     = "eu-west6"
+region_euw6     = "europe-west6"
 zone            = "europe-west6-a"
 network_interfaces = [
   {
