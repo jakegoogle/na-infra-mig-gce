@@ -124,7 +124,7 @@ resource "google_compute_instance" "sql" {
   name = each.key
   network_interface {
     network    = data.google_compute_network.internal_vpc_name.id
-    subnetwork = data.google_compute_subnetwork.mgmt_subnetwork_euw6.self_link
+    subnetwork = data.google_compute_subnetwork.internal_subnetwork_euw6.self_link
   }
 
   boot_disk {
