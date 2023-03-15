@@ -192,11 +192,6 @@ variable "options" {
   }
 }
 
-variable "project_id" {
-  description = "Project id."
-  type        = string
-}
-
 variable "region_euw6" {
   description = "Compute region."
   type        = string
