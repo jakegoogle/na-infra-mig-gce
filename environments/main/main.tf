@@ -124,7 +124,7 @@ resource "google_compute_instance" "default" {
   name = each.key
   network_interface {
     network    = "projects/rcb-gcve/global/networks/gve-lab-vpc-internal"
-    subnetwork = "projects/rcb-gcve2/regions/eu-west6/subnetworks/internal-euw6-subnet"
+    subnetwork = "projects/rcb-gcve/regions/eu-west6/subnetworks/internal-euw6-subnet"
   }
 
   boot_disk {
