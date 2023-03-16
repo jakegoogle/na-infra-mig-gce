@@ -150,11 +150,29 @@ resource "google_compute_instance" "sql" {
   }
 }
 
-resource "google_compute_disk" "ltydevkeysql01-disk" {
+resource "google_compute_disk" "ltydevkeysql01-disk-zone-a" {
   for_each = local.attached_disks_pairs
   project  = var.project
   name     = each.key #"sql-cluster-vm01-${local.disk_names[count.index]}"
   type     = local.attached_disks[each.value.disk_name].options.type
   zone     = var.zone
+  size     = local.attached_disks[each.value.disk_name].size
+}
+
+resource "google_compute_disk" "ltydevkeysql01-disk-zone-b" {
+  for_each = local.attached_disks_pairs
+  project  = var.project
+  name     = each.key #"sql-cluster-vm01-${local.disk_names[count.index]}"
+  type     = local.attached_disks[each.value.disk_name].options.type
+  zone     = "europe-west6-b"
+  size     = local.attached_disks[each.value.disk_name].size
+}
+
+resource "google_compute_disk" "ltydevkeysql01-disk-zone-c" {
+  for_each = local.attached_disks_pairs
+  project  = var.project
+  name     = each.key #"sql-cluster-vm01-${local.disk_names[count.index]}"
+  type     = local.attached_disks[each.value.disk_name].options.type
+  zone     = "europe-west6-c"
   size     = local.attached_disks[each.value.disk_name].size
 }
