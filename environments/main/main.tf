@@ -84,9 +84,28 @@ resource "google_compute_instance" "jumpbox-jw" {
   }  
 }
 
+resource "google_compute_instance" "jumpbox-ed" {
+  name         = "jumpbox-ed"
+  machine_type = "e2-medium"
+  zone         = "europe-west6-a"
+
+  tags = ["iap-jumpserver","allow-internal","mgmt-iap-jumpserver"]
+
+  boot_disk {
+    initialize_params {
+      image = "gcvejumpserverimage"
+    }
+  }
+
+  network_interface {
+    network    = data.google_compute_network.mgmt_vpc_name.id
+    subnetwork = data.google_compute_subnetwork.mgmt_subnetwork_euw6.id
+  }  
+}
+
 /********************************************
 SQL Cluster VM
-********************************************/
+*******************************************
 resource "google_service_account" "compute_sql_sa" {
   project      = var.project
   account_id   = "${var.project}-sql"
@@ -158,3 +177,4 @@ resource "google_compute_disk" "ltydevkeysql01-disk" {
   zone     = var.zone
   size     = local.attached_disks[each.value.disk_name].size
 }
+*/
