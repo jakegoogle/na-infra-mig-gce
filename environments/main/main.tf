@@ -105,7 +105,7 @@ resource "google_compute_instance" "jumpbox-ed" {
 
 /********************************************
 SQL Cluster VM
-*******************************************
+********************************************/
 resource "google_service_account" "compute_sql_sa" {
   project      = var.project
   account_id   = "${var.project}-sql"
@@ -114,8 +114,8 @@ resource "google_service_account" "compute_sql_sa" {
 
 locals {
   instance_names = ["ltydevkeysql01", "ltydevkeysql02", "ltydevapxsql01", "ltydevapxsql02", "ltydevaplsql01", "ltydevaplsql02"]
-  ip_address     = ["10.96.56.6", "10.96.56.7", "10.96.56.8", "10.96.56.9", "10.96.56.10", "10.96.56.11"]
-  sites          = ["us-central1-a", "us-central1-a", "us-central1-a", "us-central1-a", "us-central1-a", "us-central1-a"]
+  ip_address     = ["10.1.1.20", "10.1.1.21", "10.1.1.22", "10.1.1.23", "10.1.1.24", "10.1.1.25"]
+  sites          = ["europe-west6-a", "europe-west6-a", "europe-west6-a", "europe-west6-a", "europe-west6-a", "europe-west6-a"]
   add_disk       = [true, true, true, true, true, true]
   add_disk_space = ["100", "100", "100", "100", "100", "100"]
 }
@@ -177,4 +177,3 @@ resource "google_compute_disk" "ltydevkeysql01-disk" {
   zone     = var.zone
   size     = local.attached_disks[each.value.disk_name].size
 }
-*/
