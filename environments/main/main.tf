@@ -113,11 +113,11 @@ resource "google_service_account" "compute_sql_sa" {
 }
 
 locals {
-  instance_names = ["ltydevkeysql01", "ltydevkeysql02", "ltydevapxsql01", "ltydevapxsql02", "ltydevaplsql01", "ltydevaplsql02"]
-  ip_address     = ["10.1.1.20", "10.1.1.21", "10.1.1.22", "10.1.1.23", "10.1.1.24", "10.1.1.25"]
-  sites          = ["europe-west6-a", "europe-west6-a", "europe-west6-a", "europe-west6-a", "europe-west6-a", "europe-west6-a"]
-  add_disk       = [true, true, true, true, true, true]
-  add_disk_space = ["100", "100", "100", "100", "100", "100"]
+  instance_names = ["ltydevkeysql01", "ltydevkeysql02", "ltydevapxsql01"]
+  ip_address     = ["10.1.1.20", "10.1.1.21", "10.1.1.22"]
+  sites          = ["europe-west6-a", "europe-west6-a", "europe-west6-a"]
+  add_disk       = [true, true, true]
+  add_disk_space = ["100", "100", "100"]
 }
 
 ## Addiitonal disks for sql cluster###
