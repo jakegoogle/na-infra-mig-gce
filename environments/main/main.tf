@@ -142,6 +142,12 @@ resource "google_compute_instance" "jumpbox-ba" {
     network    = data.google_compute_network.internal_vpc_name.id
     subnetwork = data.google_compute_subnetwork.internal_subnetwork_euw6.id
   }  
+
+  service_account {
+    # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
+    email  = "jumpbox@rcb-gcve.iam.gserviceaccount.com"
+    scopes = ["cloud-platform"]
+  }
 }
 
 resource "google_compute_instance" "jumpbox-jw" {
@@ -190,7 +196,7 @@ resource "google_compute_instance" "jumpbox-ed" {
 
 /********************************************
 SQL Cluster VM
-********************************************/
+*******************************************
 resource "google_service_account" "compute_sql_sa" {
   project      = var.project
   account_id   = "${var.project}-sql"
@@ -262,3 +268,4 @@ resource "google_compute_disk" "ltydevkeysql01-disk" {
   zone     = var.zone
   size     = local.attached_disks[each.value.disk_name].size
 }
+*/
