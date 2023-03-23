@@ -57,9 +57,9 @@ resource "google_compute_router_nat" "mgmt-euw6_nat_gateway" {
 
 /********************************************
 CIS RHEL Image
-*******************************************
-resource "google_compute_instance" "cis_rhel_8" {
-  name         = "cis-rhel-8"
+********************************************/
+resource "google_compute_instance" "rhel_9" {
+  name         = "rhel-9"
   machine_type = "e2-medium"
   zone         = "europe-west6-a"
 
@@ -67,7 +67,7 @@ resource "google_compute_instance" "cis_rhel_8" {
 
   boot_disk {
     initialize_params {
-      image = "projects/cis-public/global/images/cis-red-hat-enterprise-linux-8-stig-v1-0-0-5"
+      image = "rhel-9/rhel-9-v20230306"
     }
   }
 
@@ -81,7 +81,7 @@ resource "google_compute_instance" "cis_rhel_8" {
     enable-guest-attributes = "TRUE"
   }
 }
-*/
+
 /********************************************
 Jumpboxs
 ********************************************/
