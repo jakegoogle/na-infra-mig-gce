@@ -14,7 +14,7 @@
 
 /********************************************
 Enable OS Config from VM Manager project
-********************************************/
+*******************************************
 locals {
   os-manager-metadata = {
     "enable-osconfig" = "TRUE",
@@ -27,6 +27,7 @@ resource "google_compute_project_metadata_item" "os_manager_metadata" {
   key     = each.key
   value   = each.value
 }
+*/
 
 /********************************************
 Cloud NAT
