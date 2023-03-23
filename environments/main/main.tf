@@ -58,8 +58,8 @@ resource "google_compute_router_nat" "mgmt-euw6_nat_gateway" {
 /********************************************
 CIS RHEL Image
 ********************************************/
-resource "google_compute_instance" "rhel_7" {
-  name         = "rhel-7"
+resource "google_compute_instance" "rhel_9" {
+  name         = "rhel-9"
   machine_type = "e2-medium"
   zone         = "europe-west6-a"
 
@@ -67,7 +67,7 @@ resource "google_compute_instance" "rhel_7" {
 
   boot_disk {
     initialize_params {
-      image = "rhel-cloud/rhel-7"
+      image = "rhel-cloud/rhel-9"
     }
   }
 
@@ -79,6 +79,12 @@ resource "google_compute_instance" "rhel_7" {
   metadata = {
     enable-osconfig         = "TRUE"
     enable-guest-attributes = "TRUE"
+  }
+
+  service_account {
+    # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
+    email  = "jumpbox@rcb-gcve.iam.gserviceaccount.com"
+    scopes = ["cloud-platform"]
   }
 }
 
