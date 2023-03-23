@@ -57,7 +57,7 @@ resource "google_compute_router_nat" "mgmt-euw6_nat_gateway" {
 
 /********************************************
 CIS RHEL Image
-********************************************/
+*******************************************
 resource "google_compute_instance" "cis_rhel_8" {
   name         = "cis-rhel-8"
   machine_type = "e2-medium"
@@ -81,7 +81,7 @@ resource "google_compute_instance" "cis_rhel_8" {
     enable-guest-attributes = "TRUE"
   }
 }
-
+*/
 /********************************************
 Jumpboxs
 ********************************************/
