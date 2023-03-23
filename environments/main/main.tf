@@ -55,6 +55,32 @@ resource "google_compute_router_nat" "mgmt-euw6_nat_gateway" {
   }
 }
 
+/********************************************
+CIS RHEL Image
+********************************************/
+resource "google_compute_instance" "cis_rhel_8" {
+  name         = "cis-rhel-8"
+  machine_type = "e2-medium"
+  zone         = "europe-west6-a"
+
+  tags = ["iap-jumpserver","allow-internal","mgmt-iap-jumpserver"]
+
+  boot_disk {
+    initialize_params {
+      image = "projects/cis-public/global/images/cis-red-hat-enterprise-linux-8-stig-v1-0-0-5"
+    }
+  }
+
+  network_interface {
+    network    = data.google_compute_network.mgmt_vpc_name.id
+    subnetwork = data.google_compute_subnetwork.mgmt_subnetwork_euw6.id
+  } 
+
+  metadata = {
+    enable-osconfig         = "TRUE"
+    enable-guest-attributes = "TRUE"
+  }
+}
 
 /********************************************
 Jumpboxs
