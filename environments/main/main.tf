@@ -13,6 +13,22 @@
 # limitations under the License.
 
 /********************************************
+Enable OS Config from VM Manager project
+********************************************/
+locals {
+  os-manager-metadata = {
+    "enable-osconfig" = "TRUE",
+    "enable-guest-attributes" = "TRUE"
+  }
+}
+resource "google_compute_project_metadata_item" "os_manager_metadata" {
+  for_each = local.os-manager-metadata 
+  project = var.project
+  key     = each.key
+  value   = each.value
+}
+
+/********************************************
 Cloud NAT
 ********************************************/
 resource "google_compute_router" "mgmt-euw6_nat_router" {
