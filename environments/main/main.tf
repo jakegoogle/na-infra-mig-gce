@@ -67,7 +67,7 @@ resource "google_compute_instance" "rhel_9" {
 
   boot_disk {
     initialize_params {
-      image = "rhel-9/rhel-9-v20230306"
+      image = "rhel-cloud/rhel-9"
     }
   }
 
