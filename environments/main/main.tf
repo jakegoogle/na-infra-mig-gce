@@ -88,6 +88,36 @@ resource "google_compute_instance" "rhel_9" {
   }
 }
 
+resource "google_compute_instance" "cis_rhel_9" {
+  name         = "cis-rhel-9"
+  machine_type = "e2-medium"
+  zone         = "europe-west6-a"
+
+  tags = ["iap-jumpserver","allow-internal","mgmt-iap-jumpserver"]
+
+  boot_disk {
+    initialize_params {
+      image = "projects/cis-public/global/images/cis-red-hat-enterprise-linux-9-level-1-v1-0-0-1"
+    }
+  }
+
+  network_interface {
+    network    = data.google_compute_network.mgmt_vpc_name.id
+    subnetwork = data.google_compute_subnetwork.mgmt_subnetwork_euw6.id
+  } 
+
+  metadata = {
+    enable-osconfig         = "TRUE"
+    enable-guest-attributes = "TRUE"
+  }
+
+  service_account {
+    # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
+    email  = "jumpbox@rcb-gcve.iam.gserviceaccount.com"
+    scopes = ["cloud-platform"]
+  }
+}
+
 /********************************************
 Jumpboxs
 ********************************************/
@@ -131,6 +161,12 @@ resource "google_compute_instance" "jumpbox-jw" {
     network    = data.google_compute_network.mgmt_vpc_name.id
     subnetwork = data.google_compute_subnetwork.mgmt_subnetwork_euw6.id
   }  
+
+  service_account {
+    # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
+    email  = "jumpbox@rcb-gcve.iam.gserviceaccount.com"
+    scopes = ["cloud-platform"]
+  }
 }
 
 resource "google_compute_instance" "jumpbox-ed" {
