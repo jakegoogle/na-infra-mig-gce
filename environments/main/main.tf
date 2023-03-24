@@ -78,8 +78,8 @@ resource "google_compute_instance" "rhel_9" {
   }
 
   network_interface {
-    network    = data.google_compute_network.mgmt_vpc_name.id
-    subnetwork = data.google_compute_subnetwork.mgmt_subnetwork_euw6.id
+    network    = data.google_compute_network.external_vpc_name.id
+    subnetwork = data.google_compute_subnetwork.external_subnetwork_euw6.id
   } 
 
   metadata = {

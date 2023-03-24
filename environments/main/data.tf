@@ -11,34 +11,22 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-/*
-data "google_kms_key_ring" "gcs_key_ring_eu" {
- name     = "${var.gcs_key_ring_eu}"
- location = "${var.ring_location}"
-  project  = "${var.project}"
-}
 
-data "google_kms_crypto_key" "key_cloudstorage_eu" {
-  name     = "${var.key_cloudstorage_eu}"
-  key_ring = data.google_kms_key_ring.gcs_key_ring_eu.id
-}
-
-*/
 data "google_compute_image" "my_image" {
   name  = "gcvejumpserverimage"
 }
 data "google_compute_network" "internal-vpc" {
-  name = var.internal-vpc-name
+  name = var.internal-vpc-vars["vpc-name"]
 }
 data "google_compute_subnetwork" "internal-subnetwork" {
-  name   = var.internal-subnetwork-name
+  name   = var.internal-vpc-vars["euw2-subnetwork-name"]
   region = "europe-west2"
 }
 data "google_compute_network" "mgmt-vpc" {
-  name = var.mgmt-vpc-name
+  name = var.mgmt-vpc-vars["vpc-name"]
 }
 data "google_compute_subnetwork" "mgmt-subnetwork" {
-  name   = var.mgmt-subnetwork-name
+  name   = var.mgmt-vpc-vars["euw2-subnetwork-name"]
   region = "europe-west2"
 }
 
@@ -55,5 +43,12 @@ data "google_compute_network" "mgmt_vpc_name" {
 }
 data "google_compute_subnetwork" "mgmt_subnetwork_euw6" {
   name   = var.mgmt-vpc-vars["euw6-subnetwork-name"]
+  region = "europe-west6"
+}
+data "google_compute_network" "external_vpc_name" {
+  name = var.external-vpc-vars["vpc-name"]
+}
+data "google_compute_subnetwork" "external_subnetwork_euw6" {
+  name   = var.external-vpc-vars["euw6-subnetwork-name"]
   region = "europe-west6"
 }
