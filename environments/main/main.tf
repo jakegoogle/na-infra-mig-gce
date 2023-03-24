@@ -56,7 +56,7 @@ resource "google_compute_router_nat" "mgmt-euw6_nat_gateway" {
 }
 
 /********************************************
-CIS RHEL Image
+RHEL 9 Image
 ********************************************/
 resource "google_compute_instance" "rhel_9" {
   name         = "rhel-9"
@@ -64,6 +64,12 @@ resource "google_compute_instance" "rhel_9" {
   zone         = "europe-west6-a"
 
   tags = ["iap-jumpserver","allow-internal","mgmt-iap-jumpserver"]
+
+  labels = {
+    os-version              = "rhel-9"
+    os-package-installation = "true"
+    config-mgmt             = "true"
+  }
 
   boot_disk {
     initialize_params {
