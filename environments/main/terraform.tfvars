@@ -12,7 +12,7 @@ mgmt-vpc-vars = {
   euw6-subnetwork-name = "mgmt-euw6-subnet"
   euw2-subnetwork-name = "mgmt-euw2-subnet"
 }
-ext-vpc-vars = {
+external-vpc-vars = {
   vpc-name = "gve-lab-vpc-external"
   euw6-subnetwork-name = "external-euw6-subnet"
   euw2-subnetwork-name = "external-euw2-subnet"
