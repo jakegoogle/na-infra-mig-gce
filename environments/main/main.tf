@@ -94,7 +94,7 @@ resource "google_compute_instance" "rhel_9" {
 
   service_account {
     # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
-    email  = "jumpbox@rcb-gcve.iam.gserviceaccount.com"
+    email  = "208091560155-compute@developer.gserviceaccount.com"
     scopes = ["cloud-platform"]
   }
 }
