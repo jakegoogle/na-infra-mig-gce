@@ -183,6 +183,12 @@ resource "google_compute_instance" "jumpbox-jw" {
     subnetwork = data.google_compute_subnetwork.mgmt_subnetwork_euw6.id
   }  
 
+  labels = {
+    os-version              = "debian-11"
+    os-package-installation = "true"
+    config-mgmt             = "true"
+  }
+
   service_account {
     # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
     email  = "jumpbox@rcb-gcve.iam.gserviceaccount.com"
