@@ -79,13 +79,9 @@ resource "google_compute_instance" "rhel_8_os_managed" {
   }
 
   network_interface {
-    network    = data.google_compute_network.external_vpc_name.id
-    subnetwork = data.google_compute_subnetwork.external_subnetwork_euw6.id
-
-   # access_config {
-   #   // Ephemeral public IP
-   # }
-  } 
+    network    = data.google_compute_network.mgmt_vpc_name.id
+    subnetwork = data.google_compute_subnetwork.mgmt_subnetwork_euw6.id
+  }
 
   metadata = {
     enable-osconfig         = "TRUE"
