@@ -56,18 +56,18 @@ resource "google_compute_router_nat" "mgmt-euw6_nat_gateway" {
 }
 
 /********************************************
-RHEL 9 Image
+RHEL Images
 ********************************************/
 
-resource "google_compute_instance" "rhel_8_os_managed" {
-  name         = "rhel-8-managed"
+resource "google_compute_instance" "rhel_9_os_managed" {
+  name         = "rhel-9-managed"
   machine_type = "e2-medium"
   zone         = "europe-west6-a"
 
   tags = ["iap-jumpserver","allow-internal","mgmt-iap-jumpserver"]
 
   labels = {
-    os-version              = "rhel-8"
+    os-version              = "rhel-9"
     os-package-installation = "true"
     config-mgmt             = "true"
   }
@@ -94,13 +94,20 @@ resource "google_compute_instance" "rhel_8_os_managed" {
     scopes = ["cloud-platform"]
   }
 }
-/*
+
 resource "google_compute_instance" "cis_rhel_9" {
-  name         = "cis-rhel-9"
+  name         = "cis-rhel-9-managed"
   machine_type = "e2-medium"
   zone         = "europe-west6-a"
 
   tags = ["iap-jumpserver","allow-internal","mgmt-iap-jumpserver"]
+
+  labels = {
+    os-version              = "rhel-9"
+    cis-image               = "true"
+    os-package-installation = "true"
+    config-mgmt             = "true"
+  }
 
   boot_disk {
     initialize_params {
@@ -109,13 +116,9 @@ resource "google_compute_instance" "cis_rhel_9" {
   }
 
   network_interface {
-    network    = data.google_compute_network.external_vpc_name.id
-    subnetwork = data.google_compute_subnetwork.external_subnetwork_euw6.id
-
-    access_config {
-      // Ephemeral public IP
-    }
-  } 
+    network    = data.google_compute_network.mgmt_vpc_name.id
+    subnetwork = data.google_compute_subnetwork.mgmt_subnetwork_euw6.id
+  }
 
   metadata = {
     enable-osconfig         = "TRUE"
@@ -128,7 +131,7 @@ resource "google_compute_instance" "cis_rhel_9" {
     scopes = ["cloud-platform"]
   }
 }
-*/
+
 /********************************************
 Jumpboxs
 ********************************************/
