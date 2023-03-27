@@ -60,7 +60,7 @@ RHEL 9 Image
 ********************************************/
 
 resource "google_compute_instance" "rhel_8_os_managed" {
-  name         = "rhel-9-managed"
+  name         = "rhel-8-managed"
   machine_type = "e2-medium"
   zone         = "europe-west6-a"
 
