@@ -59,15 +59,15 @@ resource "google_compute_router_nat" "mgmt-euw6_nat_gateway" {
 RHEL 9 Image
 ********************************************/
 
-resource "google_compute_instance" "rhel_9" {
-  name         = "rhel-9"
+resource "google_compute_instance" "rhel_8_os_managed" {
+  name         = "rhel-9-managed"
   machine_type = "e2-medium"
   zone         = "europe-west6-a"
 
   tags = ["iap-jumpserver","allow-internal","mgmt-iap-jumpserver"]
 
   labels = {
-    os-version              = "rhel-9"
+    os-version              = "rhel-8"
     os-package-installation = "true"
     config-mgmt             = "true"
   }
@@ -94,7 +94,7 @@ resource "google_compute_instance" "rhel_9" {
 
   service_account {
     # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
-    email  = "208091560155-compute@developer.gserviceaccount.com"
+    email  = "jumpbox@rcb-gcve.iam.gserviceaccount.com"
     scopes = ["cloud-platform"]
   }
 }
