@@ -220,6 +220,31 @@ resource "google_compute_instance" "jumpbox-ed" {
   }  
 }
 
+resource "google_compute_instance" "jumpbox-vg" {
+  name         = "jumpbox-vg"
+  machine_type = "e2-medium"
+  zone         = "europe-west6-a"
+
+  tags = ["iap-jumpserver","allow-internal","mgmt-iap-jumpserver"]
+
+  boot_disk {
+    initialize_params {
+      image = "gcvejumpserverimage"
+    }
+  }
+
+  network_interface {
+    network    = data.google_compute_network.mgmt_vpc_name.id
+    subnetwork = data.google_compute_subnetwork.mgmt_subnetwork_euw6.id
+  }
+
+  service_account {
+    # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
+    email  = "jumpbox@rcb-gcve.iam.gserviceaccount.com"
+    scopes = ["cloud-platform"]
+  }  
+}
+
 /********************************************
 SQL Cluster VM
 *******************************************
