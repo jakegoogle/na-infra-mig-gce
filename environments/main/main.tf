@@ -59,22 +59,22 @@ resource "google_compute_router_nat" "mgmt-euw6_nat_gateway" {
 RHEL Images
 ********************************************/
 
-resource "google_compute_instance" "rhel_9_os_managed" {
-  name         = "rhel-9-managed"
+resource "google_compute_instance" "rhel_8_os_managed" {
+  name         = "rhel-8-managed"
   machine_type = "e2-medium"
   zone         = "europe-west6-a"
 
   tags = ["iap-jumpserver","allow-internal","mgmt-iap-jumpserver"]
 
   labels = {
-    os-version              = "rhel-9"
+    os-version              = "rhel-8"
     os-package-installation = "true"
     config-mgmt             = "true"
   }
 
   boot_disk {
     initialize_params {
-      image = "rhel-cloud/rhel-9"
+      image = "rhel-cloud/rhel-8"
     }
   }
 
