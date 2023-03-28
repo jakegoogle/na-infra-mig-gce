@@ -57,7 +57,7 @@ resource "google_compute_router_nat" "mgmt-euw6_nat_gateway" {
 
 /********************************************
 RHEL Images
-*******************************************
+********************************************/
 
 resource "google_compute_instance" "rhel_8_os_managed" {
   name         = "rhel-8-managed"
@@ -67,7 +67,7 @@ resource "google_compute_instance" "rhel_8_os_managed" {
   tags = ["iap-jumpserver","allow-internal","mgmt-iap-jumpserver"]
 
   labels = {
-    rhel-8                  = "true"
+    rhel                    = "true"
     os-package-installation = "true"
     config-mgmt             = "true"
   }
@@ -94,7 +94,7 @@ resource "google_compute_instance" "rhel_8_os_managed" {
     scopes = ["cloud-platform"]
   }
 }
-*/
+
 resource "google_compute_instance" "cis_rhel_9" {
   name         = "cis-rhel-9-managed"
   machine_type = "e2-medium"
@@ -103,7 +103,7 @@ resource "google_compute_instance" "cis_rhel_9" {
   tags = ["iap-jumpserver","allow-internal","mgmt-iap-jumpserver"]
 
   labels = {
-    rhel-9                  = "true"
+    rhel                    = "true"
     cis-image               = "true"
     os-package-installation = "true"
     config-mgmt             = "true"
