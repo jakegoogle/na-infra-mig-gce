@@ -95,8 +95,8 @@ resource "google_compute_instance" "rhel_8_os_managed" {
   }
 }
 
-resource "google_compute_instance" "cis_rhel_9" {
-  name         = "cis-rhel-9-managed"
+resource "google_compute_instance" "cis_rhel_8" {
+  name         = "cis-rhel-8-managed"
   machine_type = "e2-medium"
   zone         = "europe-west6-a"
 
@@ -111,7 +111,7 @@ resource "google_compute_instance" "cis_rhel_9" {
 
   boot_disk {
     initialize_params {
-      image = "projects/cis-public/global/images/cis-red-hat-enterprise-linux-9-level-1-v1-0-0-1"
+      image = "projects/cis-public/global/images/cis-red-hat-enterprise-linux-8-level-1-v2-0-0-5"
     }
   }
 
