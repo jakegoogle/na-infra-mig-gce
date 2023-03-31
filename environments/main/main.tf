@@ -58,7 +58,7 @@ resource "google_compute_router_nat" "mgmt-euw6_nat_gateway" {
 /********************************************
 RHEL Images
 ********************************************/
-/*
+
 resource "google_compute_instance" "rhel_8_os_managed" {
   name         = "rhel-8-managed"
   machine_type = "e2-medium"
