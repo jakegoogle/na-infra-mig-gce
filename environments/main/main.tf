@@ -94,7 +94,7 @@ resource "google_compute_instance" "rhel_8_os_managed" {
     scopes = ["cloud-platform"]
   }
 }
-/*
+
 resource "google_compute_instance" "cis_rhel_8" {
   name         = "cis-rhel-8-managed"
   machine_type = "e2-medium"
