@@ -60,7 +60,7 @@ Ops_Agent
 ********************************************/
 module "rhel_agent_policy" {
   source     = "terraform-google-modules/cloud-operations/google//modules/agent-policy"
-  version    = "~> 0.2.3"
+  version    = "0.2.4"
 
   project_id = var.project
   policy_id  = "rhel-ops-agents-policy"
@@ -87,7 +87,7 @@ module "rhel_agent_policy" {
 
 module "debian_agent_policy" {
   source     = "terraform-google-modules/cloud-operations/google//modules/agent-policy"
-  version    = "~> 0.2.3"
+  version    = "0.2.4"
 
   project_id = var.project
   policy_id  = "debian-ops-agents-policy"
