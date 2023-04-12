@@ -56,9 +56,65 @@ resource "google_compute_router_nat" "mgmt-euw6_nat_gateway" {
 }
 
 /********************************************
+Ops_Agent
+********************************************/
+module "rhel_agent_policy" {
+  source     = "terraform-google-modules/cloud-operations/google//modules/agent-policy"
+  version    = "~> 0.2.3"
+
+  project_id = var.project
+  policy_id  = "rhel-ops-agents-policy"
+  agent_rules = [
+    {
+      type               = "ops-agent"
+      version            = "latest"
+      package_state      = "installed"
+      enable_autoupgrade = true
+    },
+  ]
+  group_labels = [
+    {
+      ops-agent  = "true"
+    }
+  ]
+    os_types = [
+    {
+      short_name = "rhel"
+      version    = "8"
+    }
+  ]
+}
+
+module "debian_agent_policy" {
+  source     = "terraform-google-modules/cloud-operations/google//modules/agent-policy"
+  version    = "~> 0.2.3"
+
+  project_id = var.project
+  policy_id  = "debian-ops-agents-policy"
+  agent_rules = [
+    {
+      type               = "latest"
+      version            = "current-major"
+      package_state      = "installed"
+      enable_autoupgrade = true
+    },
+  ]
+  group_labels = [
+    {
+      ops-agent   = "true"
+    }
+  ]
+  os_types = [
+    {
+      short_name  = "debian"
+      version     = "11"
+    }
+  ]
+}
+
+/********************************************
 RHEL Images
 ********************************************/
-
 resource "google_compute_instance" "rhel_8_os_managed" {
   name         = "rhel-8-managed"
   machine_type = "e2-medium"
@@ -70,6 +126,7 @@ resource "google_compute_instance" "rhel_8_os_managed" {
     rhel                    = "true"
     os-package-installation = "true"
     config-mgmt             = "true"
+    ops-agent               = "true"
   }
 
   boot_disk {
@@ -107,6 +164,7 @@ resource "google_compute_instance" "cis_rhel_8" {
     cis-image               = "true"
     os-package-installation = "true"
     config-mgmt             = "true"
+    ops-agent               = "true"
   }
 
   boot_disk {
