@@ -59,7 +59,7 @@ resource "google_compute_router_nat" "mgmt-euw6_nat_gateway" {
 Ops_Agent
 ********************************************/
 module "cloud-operations_example_agent_policy_detailed_example" {
-  source  = "terraform-google-modules/cloud-operations/google//examples/agent_policy_detailed_example"
+  source  = "../../modules/agent-policy"
   version = "0.2.4"
   project_id = var.project
 }
