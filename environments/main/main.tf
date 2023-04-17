@@ -57,13 +57,13 @@ resource "google_compute_router_nat" "mgmt-euw6_nat_gateway" {
 
 /********************************************
 Ops_Agent
-********************************************/
+********************************************
 module "cloud-operations_example_agent_policy_detailed_example" {
   source  = "../../modules/agent-policy"
   version = "0.2.4"
   project_id = var.project
 }
-/*
+
 module "rhel_agent_policy" {
   source     = "terraform-google-modules/cloud-operations/google//modules/agent-policy"
   version    = "0.2.4"
@@ -117,7 +117,7 @@ module "debian_agent_policy" {
     }
   ]
 }
-*/
+
 /********************************************
 RHEL Images
 ********************************************/
@@ -157,7 +157,7 @@ resource "google_compute_instance" "rhel_8_os_managed" {
     scopes = ["cloud-platform"]
   }
 }
-/*
+
 resource "google_compute_instance" "cis_rhel_8" {
   name         = "cis-rhel-8-managed"
   machine_type = "e2-medium"
