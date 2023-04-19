@@ -15,7 +15,7 @@
  */
 
 module "gcloud-upsert" {
-  source  = "../.."
+  source  = "terraform-google-modules/gcloud/google"
 
   platform              = "linux"
   additional_components = ["beta"]
@@ -32,9 +32,9 @@ module "gcloud-upsert" {
     EOT
   create_cmd_triggers   = { uuid = random_uuid.uuid.result }
 }
-/*
+
 module "gcloud-destroy" {
-  source  = "../.."
+  source  = "terraform-google-modules/gcloud/google"
 
   platform              = "linux"
   gcloud_sdk_version    = "325.0.0"
@@ -46,4 +46,3 @@ module "gcloud-destroy" {
 
 resource "random_uuid" "uuid" {
 }
-*/
