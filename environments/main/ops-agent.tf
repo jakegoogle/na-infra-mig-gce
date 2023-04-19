@@ -34,7 +34,7 @@ Ops_Agent
 *********************************************/
 module "agent_policy_detailed" {
   source      = "../../modules/agent-policy"
-  project_id  = var.project_id
+  project_id  = var.project
   policy_id   = "ops-agents-install-policy"
   description = "Policy for deploying Cloud Monitroing Ops Agent"
   agent_rules = [
