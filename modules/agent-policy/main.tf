@@ -32,7 +32,7 @@ module "gcloud-upsert" {
     EOT
   create_cmd_triggers   = { uuid = random_uuid.uuid.result }
 }
-
+/*
 module "gcloud-destroy" {
   source  = "../.."
 
@@ -46,3 +46,4 @@ module "gcloud-destroy" {
 
 resource "random_uuid" "uuid" {
 }
+*/
