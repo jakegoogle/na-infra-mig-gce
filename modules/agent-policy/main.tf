@@ -16,7 +16,6 @@
 
 module "gcloud-upsert" {
   source  = "../modules/terraform-google-cloud"
-  version = "~> 3.1"
 
   platform              = "linux"
   additional_components = ["beta"]
@@ -35,8 +34,7 @@ module "gcloud-upsert" {
 }
 
 module "gcloud-destroy" {
-  source  = "terraform-google-modules/gcloud/google"
-  version = "~> 3.0"
+  source  = "../modules/terraform-google-cloud"
 
   platform              = "linux"
   gcloud_sdk_version    = "325.0.0"
