@@ -15,7 +15,7 @@
  */
 
 module "gcloud-upsert" {
-  source  = "terraform-google-modules/gcloud/google"
+  source  = "../modules/terraform-google-cloud"
   version = "~> 3.1"
 
   platform              = "linux"
